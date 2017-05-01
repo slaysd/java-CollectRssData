@@ -20,8 +20,8 @@ public class HiveRepository {
 			Class.forName(driverName);
 			conn = DriverManager.getConnection(connectionUri,userName,password);
 			stmt = conn.createStatement();
-			stmt.executeUpdate("CREATE TABLE IF NOT EXISTS feed "
-					+ "( pressType String, contents String, pubDate Date, linkUrl String)"
+			stmt.executeUpdate("CREATE EXTERNAL TABLE IF NOT EXISTS feed "
+					+ "( pressType String, contents String, pubDate String, linkUrl String)"
 					+" COMMENT 'Rss list'"
 					+" ROW FORMAT DELIMITED"
 					+" FIELDS TERMINATED BY '\t'"
@@ -49,7 +49,6 @@ public class HiveRepository {
 		try {
 			conn = DriverManager.getConnection(connectionUri,userName,password);
 			stmt = conn.createStatement();
-			stmt.executeQuery("LOAD DATA LOCAL INPATH '/user/hive/warehouse/'" + "OVERWRITE INTO TABLE feed");
 			conn.close();
 		} catch (Exception e) {
 			e.printStackTrace();

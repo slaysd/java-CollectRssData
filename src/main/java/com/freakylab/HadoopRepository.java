@@ -14,7 +14,7 @@ import java.util.Date;
  */
 public class HadoopRepository {
 	private static final HadoopRepository instance = new HadoopRepository();
-	private static final String WORKING_DIR = "/user/hive/warehouse";
+	private static final String WORKING_DIR = "/user/hive/warehouse/logs";
 	Configuration conf = null;
 	Job job = null;
 

@@ -2,7 +2,7 @@
 1,조선일보,http://morss.it/:nolink:noref/www.chosun.com/site/data/rss/politics.xml
 2,중앙일보,http://ftr.fivefilters.org/makefulltextfeed.php?url=http%3A%2F%2Frss.joins.com%2Fjoins_politics_list.xml&max=3
 2,노컷뉴스,http://ftr.fivefilters.org/makefulltextfeed.php?url=http%3A%2F%2Frss.nocutnews.co.kr%2FNocutPolitics.xml&max=3
-0,동아일보,http://rss.donga.com/politics.xml
+2,동아일보,http://ftr.fivefilters.org/makefulltextfeed.php?url=http%3A%2F%2Frss.donga.com%2Fpolitics.xml&max=3
 0,오마이뉴스,http://rss.ohmynews.com/rss/politics.xml
 2,한겨레,http://ftr.fivefilters.org/makefulltextfeed.php?url=http%3A%2F%2Fwww.hani.co.kr%2Frss%2Fpolitics%2F&max=3
 2,매일경제,http://ftr.fivefilters.org/makefulltextfeed.php?url=http%3A%2F%2Ffile.mk.co.kr%2Fnews%2Frss%2Frss_30200030.xml&max=3

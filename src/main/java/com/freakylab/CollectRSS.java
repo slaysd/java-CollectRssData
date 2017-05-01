@@ -52,7 +52,7 @@ public class CollectRSS {
 			} else {
 				System.out.println("파일이 존재 하지 않습니다. : " + LIST_PATH);
 			}
-
+			fileReader.close();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -60,6 +60,9 @@ public class CollectRSS {
 
 	public void getUpdateRss() throws IOException, FeedException {
 		lastUpdated = new Date();
+		System.out.print("Reload RSS list...");
+		reloadRssList();
+		System.out.println("Done.");
 		System.out.println("Updating RSS...");
 		feed.clear();
 		for (String rssUrl : rssList) {
@@ -108,5 +111,33 @@ public class CollectRSS {
 		}
 		HadoopRepository hadoopRepository = HadoopRepository.getInstance();
 		hadoopRepository.writeFile(feed);
+	}
+
+	public void reloadRssList() {
+		File file = new File("rss_list.txt");
+		FileReader fileReader = null;
+
+		if (getRssList() == null) {
+			rssList = new ArrayList<String>();
+		} else {
+			rssList.clear();
+		}
+
+		try {
+			if (file.exists()) {
+				fileReader = new FileReader(file);
+				BufferedReader bufferedReader = new BufferedReader(fileReader);
+				String rss = null;
+				while ((rss = bufferedReader.readLine()) != null) {
+					rssList.add(rss);
+				}
+				System.out.println("Read Rss List Successful.");
+			} else {
+				System.out.println("파일이 존재 하지 않습니다. : " + LIST_PATH);
+			}
+			fileReader.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 }

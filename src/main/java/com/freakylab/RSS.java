@@ -20,7 +20,7 @@ public class RSS {
 
 	@Override
 	public String toString() {
-		return pressType + "\t" + contents + "\t" + pubDate + "\t" + "link" + "\n";
+		return pressType + "\t" + contents.trim() + "\t" + pubDate + "\t" + link + "\n";
 	}
 
 	public String getPressType() {

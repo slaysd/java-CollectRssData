@@ -12,12 +12,11 @@ import java.sql.SQLException;
 public class App {
     public static void main(String[] args ) {
         CollectRSS rss = new CollectRSS();
-        HiveRepository hiveRepository = HiveRepository.getInstance();
+        //HiveRepository hiveRepository = HiveRepository.getInstance();
         new Thread(() -> {
         	while(true) {
 				try {
 					rss.getUpdateRss();
-					//hiveRepository.insertData();
 					Thread.sleep(300000);
 				} catch (Exception e) {
 					e.printStackTrace();
