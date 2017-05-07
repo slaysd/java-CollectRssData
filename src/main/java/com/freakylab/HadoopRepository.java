@@ -47,10 +47,11 @@ public class HadoopRepository {
 		Path newFilePath = new Path(WORKING_DIR + "/" + date.getTime() + ".log");
 		FileSystem fs = null;
 
+		long lastUpdateTime = lastUpdateTime().getTime();
 		StringBuilder sb = new StringBuilder();
 		for(RSS feed : feeds) {
 			//System.out.println(feed.getPubDate().getTime() + " / " + lastUpdateTime().getTime() + " / " + (feed.getPubDate().getTime() > lastUpdateTime().getTime()));
-			if(feed.getPubDate().getTime() > lastUpdateTime().getTime()) {
+			if(feed.getPubDate().getTime() > lastUpdateTime) {
 				sb.append(feed.toString());
 			}
 		}
