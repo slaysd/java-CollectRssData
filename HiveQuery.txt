@@ -1,0 +1,39 @@
+언론사별 문재인 언급 횟수 쿼리
+SELECT presstype, count(1) AS count FROM
+    (logs LATERAL VIEW explode(split(contents, " ")) exploded_table as word)
+WHERE word LIKE '%문재인%'
+GROUP BY presstype
+
+INSERT OVERWRITE INTO TABLE candidates PARTITION (candidate = '1')
+SELECT a.presstype, a.count AS word_count, b.count AS total_count, a.count/b.count AS avg_count FROM
+    (SELECT presstype, count(1) AS count FROM
+        (logs LATERAL VIEW explode(split(contents, " ")) exploded_table AS word)
+    WHERE word LIKE '%문재인%' OR word LIKE '%문 후보%'
+    GROUP BY presstype) a
+JOIN
+    (SELECT presstype, count(1) AS count FROM
+        logs GROUP BY presstype) b
+ON (a.presstype = b.presstype);
+
+
+INSERT OVERWRITE TABLE mention_count PARTITION (candidate = 1) SELECT a.presstype AS presstype, a.count AS word_count, b.count AS total_count, a.count/b.count AS avg_count FROM (SELECT presstype, count(1) AS count FROM (logs LATERAL VIEW explode(split(contents, ' ')) exploded_table AS word) WHERE word LIKE '%문재인%' OR word LIKE '%문 후보%' GROUP BY presstype) a JOIN (SELECT presstype, count(1) AS count FROM logs GROUP BY presstype) b ON (a.presstype = b.presstype);
+INSERT OVERWRITE TABLE mention_count PARTITION (candidate = 2) SELECT a.presstype AS presstype, a.count AS word_count, b.count AS total_count, a.count/b.count AS avg_count FROM (SELECT presstype, count(1) AS count FROM (logs LATERAL VIEW explode(split(contents, ' ')) exploded_table AS word) WHERE word LIKE '%홍준표%' OR word LIKE '%홍 후보%' GROUP BY presstype) a JOIN (SELECT presstype, count(1) AS count FROM logs GROUP BY presstype) b ON (a.presstype = b.presstype);
+INSERT OVERWRITE TABLE mention_count PARTITION (candidate = 3) SELECT a.presstype AS presstype, a.count AS word_count, b.count AS total_count, a.count/b.count AS avg_count FROM (SELECT presstype, count(1) AS count FROM (logs LATERAL VIEW explode(split(contents, ' ')) exploded_table AS word) WHERE word LIKE '%안철수%' OR word LIKE '%안 후보%' GROUP BY presstype) a JOIN (SELECT presstype, count(1) AS count FROM logs GROUP BY presstype) b ON (a.presstype = b.presstype);
+INSERT OVERWRITE TABLE mention_count PARTITION (candidate = 4) SELECT a.presstype AS presstype, a.count AS word_count, b.count AS total_count, a.count/b.count AS avg_count FROM (SELECT presstype, count(1) AS count FROM (logs LATERAL VIEW explode(split(contents, ' ')) exploded_table AS word) WHERE word LIKE '%유승민%' OR word LIKE '%유 후보%' GROUP BY presstype) a JOIN (SELECT presstype, count(1) AS count FROM logs GROUP BY presstype) b ON (a.presstype = b.presstype);
+INSERT OVERWRITE TABLE mention_count PARTITION (candidate = 5) SELECT a.presstype AS presstype, a.count AS word_count, b.count AS total_count, a.count/b.count AS avg_count FROM (SELECT presstype, count(1) AS count FROM (logs LATERAL VIEW explode(split(contents, ' ')) exploded_table AS word) WHERE word LIKE '%심상정%' OR word LIKE '%심 후보%' GROUP BY presstype) a JOIN (SELECT presstype, count(1) AS count FROM logs GROUP BY presstype) b ON (a.presstype = b.presstype);
+INSERT OVERWRITE TABLE mention_count PARTITION (candidate = 6) SELECT a.presstype AS presstype, a.count AS word_count, b.count AS total_count, a.count/b.count AS avg_count FROM (SELECT presstype, count(1) AS count FROM (logs LATERAL VIEW explode(split(contents, ' ')) exploded_table AS word) WHERE word LIKE '%조원진%' OR word LIKE '%조 후보%' GROUP BY presstype) a JOIN (SELECT presstype, count(1) AS count FROM logs GROUP BY presstype) b ON (a.presstype = b.presstype);
+INSERT OVERWRITE TABLE mention_count PARTITION (candidate = 7) SELECT a.presstype AS presstype, a.count AS word_count, b.count AS total_count, a.count/b.count AS avg_count FROM (SELECT presstype, count(1) AS count FROM (logs LATERAL VIEW explode(split(contents, ' ')) exploded_table AS word) WHERE word LIKE '%오영국%' OR word LIKE '%오 후보%' GROUP BY presstype) a JOIN (SELECT presstype, count(1) AS count FROM logs GROUP BY presstype) b ON (a.presstype = b.presstype);
+INSERT OVERWRITE TABLE mention_count PARTITION (candidate = 8) SELECT a.presstype AS presstype, a.count AS word_count, b.count AS total_count, a.count/b.count AS avg_count FROM (SELECT presstype, count(1) AS count FROM (logs LATERAL VIEW explode(split(contents, ' ')) exploded_table AS word) WHERE word LIKE '%장성민%' OR word LIKE '%장 후보%' GROUP BY presstype) a JOIN (SELECT presstype, count(1) AS count FROM logs GROUP BY presstype) b ON (a.presstype = b.presstype);
+INSERT OVERWRITE TABLE mention_count PARTITION (candidate = 9) SELECT a.presstype AS presstype, a.count AS word_count, b.count AS total_count, a.count/b.count AS avg_count FROM (SELECT presstype, count(1) AS count FROM (logs LATERAL VIEW explode(split(contents, ' ')) exploded_table AS word) WHERE word LIKE '%이재오%' OR word LIKE '%이 후보%' GROUP BY presstype) a JOIN (SELECT presstype, count(1) AS count FROM logs GROUP BY presstype) b ON (a.presstype = b.presstype);
+INSERT OVERWRITE TABLE mention_count PARTITION (candidate = 10) SELECT a.presstype AS presstype, a.count AS word_count, b.count AS total_count, a.count/b.count AS avg_count FROM (SELECT presstype, count(1) AS count FROM (logs LATERAL VIEW explode(split(contents, ' ')) exploded_table AS word) WHERE word LIKE '%김선동%' OR word LIKE '%김 후보%' GROUP BY presstype) a JOIN (SELECT presstype, count(1) AS count FROM logs GROUP BY presstype) b ON (a.presstype = b.presstype);
+INSERT OVERWRITE TABLE mention_count PARTITION (candidate = 12) SELECT a.presstype AS presstype, a.count AS word_count, b.count AS total_count, a.count/b.count AS avg_count FROM (SELECT presstype, count(1) AS count FROM (logs LATERAL VIEW explode(split(contents, ' ')) exploded_table AS word) WHERE word LIKE '%이경희%' GROUP BY presstype) a JOIN (SELECT presstype, count(1) AS count FROM logs GROUP BY presstype) b ON (a.presstype = b.presstype);
+INSERT OVERWRITE TABLE mention_count PARTITION (candidate = 14) SELECT a.presstype AS presstype, a.count AS word_count, b.count AS total_count, a.count/b.count AS avg_count FROM (SELECT presstype, count(1) AS count FROM (logs LATERAL VIEW explode(split(contents, ' ')) exploded_table AS word) WHERE word LIKE '%윤홍식%' OR word LIKE '%윤 후보%' GROUP BY presstype) a JOIN (SELECT presstype, count(1) AS count FROM logs GROUP BY presstype) b ON (a.presstype = b.presstype);
+INSERT OVERWRITE TABLE mention_count PARTITION (candidate = 15) SELECT a.presstype AS presstype, a.count AS word_count, b.count AS total_count, a.count/b.count AS avg_count FROM (SELECT presstype, count(1) AS count FROM (logs LATERAL VIEW explode(split(contents, ' ')) exploded_table AS word) WHERE word LIKE '%김민찬%' GROUP BY presstype) a JOIN (SELECT presstype, count(1) AS count FROM logs GROUP BY presstype) b ON (a.presstype = b.presstype);
+
+#!/bin/bash
+echo "Starting of Job"
+cd /home/hadoop/work/hive/bin
+hive -e 'select * from mytest.empl'
+echo "Script ends here"
+
+mysql --host=192.168.1.110 --database=election --user=election --password=gkenqwoalTek
